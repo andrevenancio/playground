@@ -35,7 +35,7 @@ git rm --cached path_to_submodule (no trailing slash).
 rm -rf path_to_submodule
 ```
 ### Experiments ###
-*wonderwall
+* wonderwall
 
 ### Change Log ###
 
