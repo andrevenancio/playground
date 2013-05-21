@@ -38,6 +38,7 @@ rm -rf path_to_submodule
 
 ### Experiments ###
 * wonderwall
+* simple noise
 
 ### Change Log ###
 

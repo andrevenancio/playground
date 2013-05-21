@@ -49,7 +49,6 @@ Wonderwall.prototype.init = function() {
   this.canvas.addEventListener('mousemove', function(e) { scope.onMove(e); }, false);
 
   /* dat.GUI controlers */
-  var scope = this;
   this.folder.add(scope, 'columns', 1, 10).step(1).onChange(this.rebuild.bind(this));
   this.folder.add(scope, 'rows', 1, 10).step(1).onChange(this.rebuild.bind(this));
   this.folder.add(scope, 'reaction', -200, 200);
@@ -74,7 +73,7 @@ Wonderwall.prototype.onMove = function(e) {
 };
 
 /**
- * Rebuilds the wonderwall, everytime a parameter is changed
+ * Rebuilds the experiment, everytime a parameter is changed
  */
 Wonderwall.prototype.rebuild = function() {
   this.points = [];
@@ -114,7 +113,6 @@ Wonderwall.prototype.update = function(point) {
   var dx;
   var dy;
   var distance = Math.sqrt((point.ox - (this.mouseX - this.canvasBox.x)) * (point.ox - (this.mouseX - this.canvasBox.x)) + (point.oy - (this.mouseY - this.canvasBox.y)) * (point.oy - (this.mouseY - this.canvasBox.y)));
-
 
   if (distance < Math.abs(this.reaction)) {
     var diff = distance * (Math.abs(this.reaction) - distance) / Math.abs(this.reaction);
