@@ -8,7 +8,8 @@
  * @constructor
  */
 var Wonderwall = function() {
-  this.debug = new Razor.Debugger();
+  this.debug = new Razor.Debugger(false, false);
+
   this.canvas = document.getElementById('canvas');
   this.context = this.canvas.getContext('2d');
 
@@ -17,17 +18,18 @@ var Wonderwall = function() {
 
   this.canvasBox;
 
-  this.isMouseDown = false;
   this.mouseX = 0;
   this.mouseY = 0;
 
   this.folder = this.debug.gui.addFolder('Wonderwall');
 
-  this.columns = 5;
-  this.rows = 7;
-  this.sizeW = 96;
-  this.sizeH = 96;
-  this.reaction = 96;
+  this.columns = 6;
+  this.rows = 6;
+  this.sizeW = 100;
+  this.sizeH = 100;
+  this.reaction = 120;
+  this.minValue = -20;
+  this.maxValue = 20;
 
   this.points = [];
 
@@ -44,8 +46,6 @@ Wonderwall.prototype.init = function() {
 
   var scope = this;
   window.addEventListener('resize', function() { scope.resize(); }, false);
-  this.canvas.addEventListener('mousedown', function(e) { scope.onDown(e); }, false);
-  this.canvas.addEventListener('mouseup', function(e) { scope.onUp(2); }, false);
   this.canvas.addEventListener('mousemove', function(e) { scope.onMove(e); }, false);
 
   /* dat.GUI controlers */
@@ -55,6 +55,8 @@ Wonderwall.prototype.init = function() {
   this.folder.add(scope, 'reaction', -200, 200);
   this.folder.add(scope, 'sizeW').onChange(this.rebuild.bind(this));
   this.folder.add(scope, 'sizeH').onChange(this.rebuild.bind(this));
+  this.folder.add(scope, 'minValue', -50, 50).onChange(this.rebuild.bind(this));
+  this.folder.add(scope, 'maxValue', -50, 50).onChange(this.rebuild.bind(this));
   this.folder.open();
 
   this.buildGrid();
@@ -62,23 +64,18 @@ Wonderwall.prototype.init = function() {
   requestAnimationFrame(this.bindedRender);
 };
 
-Wonderwall.prototype.onDown = function(e) {
-  this.isMouseDown = true;
-  this.mouseX = e.pageX;
-  this.mouseY = e.pageY;
-};
-
-Wonderwall.prototype.onUp = function(e) {
-  this.isMouseDown = false;
-  this.mouseX = e.pageX;
-  this.mouseY = e.pageY;
-};
-
+/**
+ * Handles mouse move
+ * @param  {Event} e Mouse move event.
+ */
 Wonderwall.prototype.onMove = function(e) {
   this.mouseX = e.pageX;
   this.mouseY = e.pageY;
 };
 
+/**
+ * Rebuilds the wonderwall, everytime a parameter is changed
+ */
 Wonderwall.prototype.rebuild = function() {
   this.points = [];
 
@@ -86,6 +83,9 @@ Wonderwall.prototype.rebuild = function() {
   this.buildGrid();
 };
 
+/**
+ * Handles window resize
+ */
 Wonderwall.prototype.resize = function() {
   this.canvas.width = this.width = window.innerWidth;
   this.canvas.height = this.height = window.innerHeight;
@@ -93,21 +93,28 @@ Wonderwall.prototype.resize = function() {
   this.canvasBox = Razor.getBoundingBox(this.canvas);
 };
 
+/**
+ * Builds the tiles based on a grid
+ */
 Wonderwall.prototype.buildGrid = function() {
 
   for (var i = 0; i < this.columns; i++) {
     for (var j = 0; j < this.rows; j++) {
-      var point = new Wonderwall.Point(this.sizeW + (j * this.sizeW) + Math.random()*10, this.sizeH + (i * this.sizeH));
+      var point = new Wonderwall.Point(this.sizeW + (j * this.sizeW) + Razor.Math.getRandom(this.minValue, this.maxValue), this.sizeH + (i * this.sizeH) + Razor.Math.getRandom(this.minValue, this.maxValue));
       this.points.push(point);
     }
   }
 };
 
-Wonderwall.prototype.update = function(point, debug) {
+/**
+ * Updates a point based on proximity with mouse
+ * @param  {Wonderwall.Point} point Point to update.
+ */
+Wonderwall.prototype.update = function(point) {
   var dx;
   var dy;
   var distance = Math.sqrt((point.ox - (this.mouseX - this.canvasBox.x)) * (point.ox - (this.mouseX - this.canvasBox.x)) + (point.oy - (this.mouseY - this.canvasBox.y)) * (point.oy - (this.mouseY - this.canvasBox.y)));
- 
+
 
   if (distance < Math.abs(this.reaction)) {
     var diff = distance * (Math.abs(this.reaction) - distance) / Math.abs(this.reaction);
@@ -128,6 +135,9 @@ Wonderwall.prototype.update = function(point, debug) {
   point.y += (dy - point.y) / 3;
 };
 
+/**
+ * Renders tiles
+ */
 Wonderwall.prototype.render = function() {
   this.debug.begin();
 
@@ -151,8 +161,8 @@ Wonderwall.prototype.render = function() {
       this.context.lineTo(this.points[current + sum + 0 + this.rows].x, this.points[current + sum + 0 + this.rows].y);
       this.context.closePath();
 
-      var valor = Math.floor(255 - (4 * current));
-      this.context.fillStyle = 'rgb(' + valor + ',' + 0 + ',' + valor + ')';
+      var value = Math.floor(255 - (4 * current));
+      this.context.fillStyle = 'rgb(' + value + ',' + 0 + ',' + value + ')';
       this.context.fill();
 
       if (b % this.rows == this.rows - 2) {
