@@ -4,6 +4,3 @@
 [submodule "template/lib/dat-gui"]
 	path = template/lib/dat-gui
 	url = https://code.google.com/p/dat-gui/
-[submodule "template/lib/razor"]
-	path = template/lib/razor
-	url = git@github.com:andrevenancio/razorfish-razor.git
