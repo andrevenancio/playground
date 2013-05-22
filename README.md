@@ -8,7 +8,8 @@ Razorfish playground is a place where we can access, or quickly build experiment
 
 ### Examples ###
 [![Wonderwall](http://raw.github.com/andrevenancio/razorfish-playground/master/wonderwall/preview.png)](http://andrevenancio.github.com/razorfish-playground/wonderwall/wonderwall.html)
-[![Simple Noise](http://andrevenancio.github.com/razorfish-playground/noise/preview.png)](http://andrevenancio.github.com/razorfish-playground/noise/simplenoise.html)
+[![Simple Noise](http://andrevenancio.github.com/razorfish-playground/preview.png)](http://andrevenancio.github.com/razorfish-playground/wonderwall.html)
+[![Simple Noise](preview.png)](wonderwall.html)
 
 
 ### Dependencies ###
