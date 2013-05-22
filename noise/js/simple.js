@@ -121,7 +121,7 @@ SimpleNoise.prototype.render = function() {
   this.debug.begin();
 
   this.context.clearRect(0, 0, this.width, this.height);
- 
+
   this.tempContext.putImageData(this.noise.getSimple(), 0, 0);
   this.context.drawImage(this.tempCanvas, 0, 0, this.width, this.height);
 
