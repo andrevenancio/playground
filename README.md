@@ -5,9 +5,16 @@ Razorfish Playground
 
 Razorfish playground is a place where we can access, or quickly build experiments exploring a particular technology.
 
+
+### Examples ###
+[![Wonderwall](http://andrevenancio.github.com/razorfish-playground/wonderwall/preview.png)](http://andrevenancio.github.com/razorfish-playground/wonderwall/wonderwall.html)
+[![Simple Noise](http://andrevenancio.github.com/razorfish-playground/noise/preview.png)](http://andrevenancio.github.com/razorfish-playground/noise/simplenoise.html)
+
+
 ### Dependencies ###
 
 This git repo makes use of 3 other external git repositories. Stats.js, dat-GUI and Razor. If you just download a zip file of this repo, you wont be able to run it. Always make a clone on your machine.
+
 
 ### Submodules ###
 
@@ -35,14 +42,11 @@ git rm --cached path_to_submodule (no trailing slash).
 rm -rf path_to_submodule
 ```
 
-### Examples ###
-[![Relative values](http://sole.github.com/tween.js/assets/examples/09_relative.png)](http://andrevenancio.github.com/razorfish-playground/wonderwall/wonderwall.html)
-
-### Experiments ###
-* wonderwall
-* simple noise
 
 ### Change Log ###
+2013 05 22
+* added simple noise example.
+* added wonderwall example.
 
 2013 05 17
 * added `razor` submodule, hosted on github.
