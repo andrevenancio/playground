@@ -18,8 +18,6 @@ var SimpleNoise = function() {
 
   this.folder = this.debug.gui.addFolder('Simple Noise');
 
-  this.scale = 3;
-
   this.R = 255;
   this.G = 0;
   this.B = 0;
@@ -46,8 +44,6 @@ SimpleNoise.prototype.init = function() {
   window.addEventListener('resize', function() { scope.resize(); }, false);
 
   /* dat.GUI controlers */
-  this.folder.add(scope, 'scale', 1, 20).onChange(this.rebuild.bind(this));
-
   this.folder.add(scope, 'grayscale', 0, 255).onChange(this.handleGrayscale.bind(this));
   this.folder.add(scope, 'R', 0, 255).step(1).listen().onChange(function() {
     scope.grayscaleSlider = 'r';
@@ -124,13 +120,10 @@ SimpleNoise.prototype.handleGrayscale = function(bool) {
 SimpleNoise.prototype.render = function() {
   this.debug.begin();
 
-  this.context.clearRect(0, 0, this.width * this.scale, this.height * this.scale);
+  this.context.clearRect(0, 0, this.width, this.height);
+ 
   this.tempContext.putImageData(this.noise.getSimple(), 0, 0);
-
-  this.context.save();
-  this.context.scale(this.scale, this.scale);
-  this.context.drawImage(this.tempCanvas, 0, 0);
-  this.context.restore();
+  this.context.drawImage(this.tempCanvas, 0, 0, this.width, this.height);
 
   this.debug.end();
   requestAnimationFrame(this.bindedRender);
