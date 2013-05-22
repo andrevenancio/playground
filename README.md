@@ -5,6 +5,10 @@ Razorfish Playground
 
 Razorfish playground is a place where we can access, or quickly build experiments exploring a particular technology.
 
+### Dependencies ###
+
+This git repo makes use of 3 other external git repositories. Stats.js, dat-GUI and Razor. If you just download a zip file of this repo, you wont be able to run it. Always make a clone on your machine.
+
 ### Submodules ###
 
 If any of the tools used are git repositories from other authors, we should install them as a submodule.
@@ -14,11 +18,7 @@ To install a new submodule, Open the Terminal, go to the razorfish-playground ro
 git submodule add <remote-repository.git> <local-path>
 ```
 An example could be: `git submodule add https://github.com/mrdoob/stats.js.git template/lib/stats.js` hosted on github or `git submodule add https://code.google.com/p/dat-gui/  template/lib/dat-gui` hosted on Google Code.
-If you wish to just update a submodule to the latest version, go to the root of the project and type on the Terminal:
-```
-git submodule update
-```
-Then, go to the root of the submodule and type:
+If you wish to just update a submodule to the latest version, go to the root of the submodule and type:
 ```
 git pull origin master
 ```
