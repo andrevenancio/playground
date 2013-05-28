@@ -1,1 +1,4 @@
 .DS_Store
+template/lib/dat-gui/*
+template/lib/razor/*
+template/lib/stats.js/*
