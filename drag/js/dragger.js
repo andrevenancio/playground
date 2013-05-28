@@ -61,6 +61,10 @@ Dragger.prototype.init = function() {
   requestAnimationFrame(this.bindedRender);
 };
 
+/**
+ * Handles mouse down
+ * @param  {event} e mouse event.
+ */
 Dragger.prototype.onDown = function(e) {
   this.isDown = true;
 
@@ -69,6 +73,10 @@ Dragger.prototype.onDown = function(e) {
 
 };
 
+/**
+ * Handles mouse move
+ * @param  {event} e mouse event.
+ */
 Dragger.prototype.onMove = function(e) {
   if (this.isDown) {
     this.mouse[0] = e.pageX;
@@ -76,6 +84,10 @@ Dragger.prototype.onMove = function(e) {
   }
 };
 
+/**
+ * Handles mouse up
+ * @param  {event} e mouse event.
+ */
 Dragger.prototype.onUp = function(e) {
   if (this.isDown == true) {
     this.isDown = false;

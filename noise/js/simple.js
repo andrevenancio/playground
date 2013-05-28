@@ -30,7 +30,6 @@ var SimpleNoise = function() {
 
   this.bindedRender = this.render.bind(this);
 
-
   this.init();
 };
 
