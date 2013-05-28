@@ -15,7 +15,12 @@ Razorfish playground is a place where we can access, or quickly build experiment
 
 ### Dependencies ###
 
-This git repo makes use of 3 other external libraries. Stats.js, dat-GUI and Razor.
+This git repo makes use of 3 other external libraries. stats.js, dat-GUI and razor.
+hosted on:
+* https://github.com/mrdoob/stats.js/
+* https://code.google.com/p/dat-gui/
+* https://github.com/andrevenancio/razorfish-razor/
+
 
 
 ### Change Log ###
