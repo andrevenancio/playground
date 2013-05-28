@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Razorfish | Dragging</title>
+    <link rel="stylesheet" type="text/css" href="../template/css/rf.css">
+    <script src="../template/lib/stats.js/build/stats.min.js"></script>
+    <script src="../template/lib/dat-gui/build/dat.color.min.js"></script>
+    <script src="../template/lib/dat-gui/build/dat.gui.min.js"></script>
+    <script src="../template/lib/razor/build/razor.min.js"></script>
+    <script src="../template/lib/raf.js"></script>
+    <style>
+    #dragger {
+      position: absolute;
+      top: 50px;
+      left: 50px;
+      width: 66px;
+      height: 66px;
+      background: url('img/dragger.png') 0 0 no-repeat;
+    }
+    * {
+      -moz-user-select: -moz-none;
+      -khtml-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    </style>
+  </head>
+  <body>
+    <header>Blackberry Dragging Prototype</header>
+    <canvas id="canvas"></canvas>
+    <div id="dragger"></div>
+    <script src="js/dragger.js"></script>
+    <script>
+      var dragger = new Dragger();
+    </script>
+  </body>
+</html>
