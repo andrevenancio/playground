@@ -23,8 +23,8 @@ var Wonderwall = function() {
 
   this.folder = this.debug.gui.addFolder('Wonderwall');
 
-  this.columns = 6;
   this.rows = 6;
+  this.columns = 6;
   this.sizeW = 100;
   this.sizeH = 100;
   this.reaction = 120;
@@ -49,8 +49,8 @@ Wonderwall.prototype.init = function() {
   this.canvas.addEventListener('mousemove', function(e) { scope.onMove(e); }, false);
 
   /* dat.GUI controlers */
-  this.folder.add(scope, 'columns', 1, 10).step(1).onChange(this.rebuild.bind(this));
-  this.folder.add(scope, 'rows', 1, 10).step(1).onChange(this.rebuild.bind(this));
+  this.folder.add(scope, 'rows', 2, 10).step(1).onChange(this.rebuild.bind(this));
+  this.folder.add(scope, 'columns', 2, 10).step(1).onChange(this.rebuild.bind(this));
   this.folder.add(scope, 'reaction', -200, 200);
   this.folder.add(scope, 'sizeW').onChange(this.rebuild.bind(this));
   this.folder.add(scope, 'sizeH').onChange(this.rebuild.bind(this));
@@ -97,8 +97,8 @@ Wonderwall.prototype.resize = function() {
  */
 Wonderwall.prototype.buildGrid = function() {
 
-  for (var i = 0; i < this.columns; i++) {
-    for (var j = 0; j < this.rows; j++) {
+  for (var i = 0; i < this.rows; i++) {
+    for (var j = 0; j < this.columns; j++) {
       var point = new Wonderwall.Point(this.sizeW + (j * this.sizeW) + Razor.Math.getRandom(this.minValue, this.maxValue), this.sizeH + (i * this.sizeH) + Razor.Math.getRandom(this.minValue, this.maxValue));
       this.points.push(point);
     }
@@ -147,23 +147,23 @@ Wonderwall.prototype.render = function() {
 
   var current = 0;
   var sum = 0;
-  var total = (this.columns - 1) * (this.rows - 1);
+  var total = (this.rows - 1) * (this.columns - 1);
 
-  for (var a = 0; a < this.columns - 1; a++) {
-    for (var b = 0; b < this.rows - 1; b++) {
+  for (var a = 0; a < this.rows - 1; a++) {
+    for (var b = 0; b < this.columns - 1; b++) {
 
       this.context.beginPath();
       this.context.moveTo(this.points[current + sum].x, this.points[current + sum].y);
       this.context.lineTo(this.points[current + sum + 1].x, this.points[current + sum + 1].y);
-      this.context.lineTo(this.points[current + sum + 1 + this.rows].x, this.points[current + sum + 1 + this.rows].y);
-      this.context.lineTo(this.points[current + sum + 0 + this.rows].x, this.points[current + sum + 0 + this.rows].y);
+      this.context.lineTo(this.points[current + sum + 1 + this.columns].x, this.points[current + sum + 1 + this.columns].y);
+      this.context.lineTo(this.points[current + sum + 0 + this.columns].x, this.points[current + sum + 0 + this.columns].y);
       this.context.closePath();
 
       var value = Math.floor(255 - (4 * current));
       this.context.fillStyle = 'rgb(' + value + ',' + 0 + ',' + value + ')';
       this.context.fill();
 
-      if (b % this.rows == this.rows - 2) {
+      if (b % this.columns == this.columns - 2) {
         ++sum;
       }
       ++current;
