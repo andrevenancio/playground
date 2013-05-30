@@ -100,7 +100,6 @@ Dragger.prototype.onUp = function(e) {
 Dragger.prototype.resize = function() {
   this.canvas.width = this.width = window.innerWidth;
   this.canvas.height = this.height = window.innerHeight;
-  this.lowerPosition[1] = this.height;
 };
 
 
@@ -121,21 +120,19 @@ Dragger.prototype.render = function() {
   this.context.beginPath();
   this.context.fillStyle = this.left;
   this.context.moveTo(0, 0);
-  this.context.lineTo(this.upperPosition[0], this.upperPosition[1]);
-  this.context.lineTo(this.lowerPosition[0], this.lowerPosition[1]);
+  this.context.lineTo(this.upperPosition[0], 0);
+  this.context.lineTo(this.lowerPosition[0], this.height);
   this.context.lineTo(0, this.height);
-  this.context.lineTo(0, 0);
   this.context.closePath();
   this.context.fill();
 
   //right half
   this.context.beginPath();
   this.context.fillStyle = this.right;
-  this.context.moveTo(this.upperPosition[0], this.upperPosition[1]);
+  this.context.moveTo(this.upperPosition[0], 0);
   this.context.lineTo(this.width, 0);
   this.context.lineTo(this.width, this.height);
   this.context.lineTo(this.lowerPosition[0], this.height);
-  this.context.lineTo(this.upperPosition[0], this.upperPosition[1]);
   this.context.closePath();
   this.context.fill();
 
@@ -158,9 +155,15 @@ Dragger.prototype.render = function() {
     x = this.lowerPosition[0] + d / 2;
   }
 
+  var angle = Razor.Math.getAngleBetweenPointsDegrees(this.upperPosition[0], 0, this.lowerPosition[0], this.height) + 90;
 
   this.domDragger.style.top = this.draggerPosition[1] + 'px';
   this.domDragger.style.left = (x - 33) + 'px';
+  this.domDragger.style['-moz-transform'] = 'rotate(' + angle + 'deg)';
+  this.domDragger.style['-webkit-transform'] = 'rotate(' + angle + 'deg)';
+  this.domDragger.style['-o-transform'] = 'rotate(' + angle + 'deg)';
+  this.domDragger.style['-ms-transform'] = 'rotate(' + angle + 'deg)';
+  this.domDragger.style['transform'] = 'rotate(' + angle + 'deg)';
 
   this.debug.end();
   requestAnimationFrame(this.bindedRender);
