@@ -8,9 +8,9 @@ Razorfish playground is a place where we can access, or quickly build experiment
 
 ### Examples ###
 
-[![Simple Noise](http://andrevenancio.github.com/razorfish-playground/noise/preview.png)](http://andrevenancio.github.com/razorfish-playground/noise/simplenoise.html)
-[![Wonderwall](http://andrevenancio.github.com/razorfish-playground/wonderwall/preview.png)](http://andrevenancio.github.com/razorfish-playground/wonderwall/wonderwall.html)
-[![Drag](http://andrevenancio.github.com/razorfish-playground/drag/preview.png)](http://andrevenancio.github.com/razorfish-playground/drag/dragging.html)
+[![Simple Noise](http://andrevenancio.github.com/playground/noise/preview.png)](http://andrevenancio.github.com/playground/noise/simplenoise.html)
+[![Wonderwall](http://andrevenancio.github.com/playground/wonderwall/preview.png)](http://andrevenancio.github.com/playground/wonderwall/wonderwall.html)
+[![Drag](http://andrevenancio.github.com/playground/drag/preview.png)](http://andrevenancio.github.com/playground/drag/dragging.html)
 
 
 ### Dependencies ###
