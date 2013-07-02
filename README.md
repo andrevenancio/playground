@@ -11,6 +11,7 @@ Razorfish playground is a place where we can access, or quickly build experiment
 [![Simple Noise](http://andrevenancio.github.com/playground/noise/preview.png)](http://andrevenancio.github.com/playground/noise/simplenoise.html)
 [![Wonderwall](http://andrevenancio.github.com/playground/wonderwall/preview.png)](http://andrevenancio.github.com/playground/wonderwall/wonderwall.html)
 [![Drag](http://andrevenancio.github.com/playground/drag/preview.png)](http://andrevenancio.github.com/playground/drag/dragging.html)
+[![Spritesheets](http://andrevenancio.github.com/playground/spritesheets/preview.png)](http://andrevenancio.github.com/playground/spritesheets/spritesheets.html)
 
 
 ### Dependencies ###
@@ -24,6 +25,8 @@ hosted on:
 
 
 ### Change Log ###
+2013 06 02
+* added spritesheets example.
 
 2013 05 28
 * added drag example.

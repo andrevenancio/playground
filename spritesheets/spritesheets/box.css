@@ -1,0 +1,61 @@
+/* ----------------------------------------------------
+   created with http://www.codeandweb.com/texturepacker 
+   ----------------------------------------------------
+   $TexturePacker:SmartUpdate:8a4d8872bfe534dc86723c0f0ba2a4b4$
+   ----------------------------------------------------
+
+   usage: <span class="{-spritename-} sprite"></span>
+
+   replace {-spritename-} with the sprite you like to use
+
+*/
+
+.sprite {display:inline-block; overflow:hidden; background-repeat: no-repeat;background-image:url(box.png);}
+
+.animation_frame_0 {width:256px; height:256px; background-position: -1550px -1034px}
+.animation_frame_1 {width:256px; height:256px; background-position: -1292px -1034px}
+.animation_frame_10 {width:256px; height:256px; background-position: -1034px -1550px}
+.animation_frame_11 {width:256px; height:256px; background-position: -1034px -1292px}
+.animation_frame_12 {width:256px; height:256px; background-position: -1034px -1034px}
+.animation_frame_13 {width:256px; height:256px; background-position: -1550px -776px}
+.animation_frame_14 {width:256px; height:256px; background-position: -1292px -776px}
+.animation_frame_15 {width:256px; height:256px; background-position: -1292px -776px}
+.animation_frame_16 {width:256px; height:256px; background-position: -1034px -776px}
+.animation_frame_17 {width:256px; height:256px; background-position: -776px -1550px}
+.animation_frame_18 {width:256px; height:256px; background-position: -776px -1292px}
+.animation_frame_19 {width:256px; height:256px; background-position: -776px -1034px}
+.animation_frame_2 {width:256px; height:256px; background-position: -776px -776px}
+.animation_frame_20 {width:256px; height:256px; background-position: -1550px -518px}
+.animation_frame_21 {width:256px; height:256px; background-position: -1292px -518px}
+.animation_frame_22 {width:256px; height:256px; background-position: -1034px -518px}
+.animation_frame_23 {width:256px; height:256px; background-position: -776px -518px}
+.animation_frame_24 {width:256px; height:256px; background-position: -518px -1550px}
+.animation_frame_25 {width:256px; height:256px; background-position: -518px -1292px}
+.animation_frame_26 {width:256px; height:256px; background-position: -518px -1034px}
+.animation_frame_27 {width:256px; height:256px; background-position: -518px -776px}
+.animation_frame_28 {width:256px; height:256px; background-position: -518px -518px}
+.animation_frame_29 {width:256px; height:256px; background-position: -1550px -260px}
+.animation_frame_3 {width:256px; height:256px; background-position: -1292px -260px}
+.animation_frame_30 {width:256px; height:256px; background-position: -1034px -260px}
+.animation_frame_31 {width:256px; height:256px; background-position: -776px -260px}
+.animation_frame_32 {width:256px; height:256px; background-position: -518px -260px}
+.animation_frame_33 {width:256px; height:256px; background-position: -260px -1550px}
+.animation_frame_34 {width:256px; height:256px; background-position: -260px -1292px}
+.animation_frame_35 {width:256px; height:256px; background-position: -260px -1034px}
+.animation_frame_36 {width:256px; height:256px; background-position: -260px -776px}
+.animation_frame_37 {width:256px; height:256px; background-position: -260px -518px}
+.animation_frame_38 {width:256px; height:256px; background-position: -260px -260px}
+.animation_frame_39 {width:256px; height:256px; background-position: -1550px -2px}
+.animation_frame_4 {width:256px; height:256px; background-position: -1292px -2px}
+.animation_frame_40 {width:256px; height:256px; background-position: -1034px -2px}
+.animation_frame_41 {width:256px; height:256px; background-position: -776px -2px}
+.animation_frame_42 {width:256px; height:256px; background-position: -518px -2px}
+.animation_frame_43 {width:256px; height:256px; background-position: -260px -2px}
+.animation_frame_44 {width:256px; height:256px; background-position: -2px -1550px}
+.animation_frame_45 {width:256px; height:256px; background-position: -2px -1292px}
+.animation_frame_46 {width:256px; height:256px; background-position: -1292px -776px}
+.animation_frame_5 {width:256px; height:256px; background-position: -2px -1034px}
+.animation_frame_6 {width:256px; height:256px; background-position: -2px -776px}
+.animation_frame_7 {width:256px; height:256px; background-position: -2px -518px}
+.animation_frame_8 {width:256px; height:256px; background-position: -2px -260px}
+.animation_frame_9 {width:256px; height:256px; background-position: -2px -2px}
