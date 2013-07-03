@@ -1,0 +1,64 @@
+/* ----------------------------------------------------
+   created with http://www.codeandweb.com/texturepacker 
+   ----------------------------------------------------
+   $TexturePacker:SmartUpdate:f3ae3d6c31f5a1913c65e71a8698d9cd$
+   ----------------------------------------------------
+
+   usage: <span class="{-spritename-} sprite"></span>
+
+   replace {-spritename-} with the sprite you like to use
+
+*/
+
+.sprite {display:inline-block; overflow:hidden; background-repeat: no-repeat;background-image:url(convertible.png);}
+
+.convertible_frame_0 {width:512px; height:256px; background-position: -2058px -2324px}
+.convertible_frame_1 {width:512px; height:256px; background-position: -2058px -2066px}
+.convertible_frame_10 {width:512px; height:256px; background-position: -1544px -2324px}
+.convertible_frame_11 {width:512px; height:256px; background-position: -1544px -2066px}
+.convertible_frame_12 {width:512px; height:256px; background-position: -2058px -1808px}
+.convertible_frame_13 {width:512px; height:256px; background-position: -1544px -1808px}
+.convertible_frame_14 {width:512px; height:256px; background-position: -2058px -1550px}
+.convertible_frame_15 {width:512px; height:256px; background-position: -1544px -1550px}
+.convertible_frame_16 {width:512px; height:256px; background-position: -1030px -2324px}
+.convertible_frame_17 {width:512px; height:256px; background-position: -1030px -2066px}
+.convertible_frame_18 {width:512px; height:256px; background-position: -1030px -1808px}
+.convertible_frame_19 {width:512px; height:256px; background-position: -1030px -1550px}
+.convertible_frame_2 {width:512px; height:256px; background-position: -2058px -1292px}
+.convertible_frame_20 {width:512px; height:256px; background-position: -1544px -1292px}
+.convertible_frame_21 {width:512px; height:256px; background-position: -1030px -1292px}
+.convertible_frame_22 {width:512px; height:256px; background-position: -2058px -1034px}
+.convertible_frame_23 {width:512px; height:256px; background-position: -1544px -1034px}
+.convertible_frame_24 {width:512px; height:256px; background-position: -1030px -1034px}
+.convertible_frame_25 {width:512px; height:256px; background-position: -516px -2324px}
+.convertible_frame_26 {width:512px; height:256px; background-position: -516px -2066px}
+.convertible_frame_27 {width:512px; height:256px; background-position: -516px -1808px}
+.convertible_frame_28 {width:512px; height:256px; background-position: -516px -1550px}
+.convertible_frame_29 {width:512px; height:256px; background-position: -516px -1292px}
+.convertible_frame_3 {width:512px; height:256px; background-position: -516px -1034px}
+.convertible_frame_30 {width:512px; height:256px; background-position: -2058px -776px}
+.convertible_frame_31 {width:512px; height:256px; background-position: -1544px -776px}
+.convertible_frame_32 {width:512px; height:256px; background-position: -1030px -776px}
+.convertible_frame_33 {width:512px; height:256px; background-position: -516px -776px}
+.convertible_frame_34 {width:512px; height:256px; background-position: -2058px -518px}
+.convertible_frame_35 {width:512px; height:256px; background-position: -1544px -518px}
+.convertible_frame_36 {width:512px; height:256px; background-position: -1030px -518px}
+.convertible_frame_37 {width:512px; height:256px; background-position: -516px -518px}
+.convertible_frame_38 {width:512px; height:256px; background-position: -2px -2324px}
+.convertible_frame_39 {width:512px; height:256px; background-position: -2px -2066px}
+.convertible_frame_4 {width:512px; height:256px; background-position: -2px -1808px}
+.convertible_frame_40 {width:512px; height:256px; background-position: -2px -1550px}
+.convertible_frame_41 {width:512px; height:256px; background-position: -2px -1292px}
+.convertible_frame_42 {width:512px; height:256px; background-position: -2px -1034px}
+.convertible_frame_43 {width:512px; height:256px; background-position: -2px -776px}
+.convertible_frame_44 {width:512px; height:256px; background-position: -2px -518px}
+.convertible_frame_45 {width:512px; height:256px; background-position: -2058px -260px}
+.convertible_frame_46 {width:512px; height:256px; background-position: -1544px -260px}
+.convertible_frame_47 {width:512px; height:256px; background-position: -1030px -260px}
+.convertible_frame_48 {width:512px; height:256px; background-position: -516px -260px}
+.convertible_frame_49 {width:512px; height:256px; background-position: -2px -260px}
+.convertible_frame_5 {width:512px; height:256px; background-position: -2058px -2px}
+.convertible_frame_6 {width:512px; height:256px; background-position: -1544px -2px}
+.convertible_frame_7 {width:512px; height:256px; background-position: -1030px -2px}
+.convertible_frame_8 {width:512px; height:256px; background-position: -516px -2px}
+.convertible_frame_9 {width:512px; height:256px; background-position: -2px -2px}
