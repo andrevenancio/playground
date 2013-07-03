@@ -8,18 +8,25 @@
  * @constructor
  */
 var Spritesheets = function() {
-  this.debug = new Razor.Debugger(false, false);
+  this.debug = new Razor.Debugger(true, false);
 
-  this.folder = this.debug.gui.addFolder('Sprite');
+  this.folder = this.debug.gui.addFolder('Spritesheets');
+  this.folderConvertible = this.folder.addFolder('Convertible');
+  this.folderPark = this.folder.addFolder('Park');
   this.debug.gui.open();
 
+
   this.bindedRender = this.render.bind(this);
+  this.bindedUpdateConvertible = this.onUpdateConvertible.bind(this);
+  this.bindedUpdatePark = this.onUpdatePark.bind(this);
 
   // the div where we render the animation
-  this.domElement = document.getElementById('example');
+  this.convertible = document.getElementById('convertible');
+  this.park = document.getElementById('park');
 
   // an instance of the Timeline class
-  this.box = new Timeline(this.domElement, 'spritesheets/convertible.png', 11, 49, this.onUpdate);
+  this.timelineConvertible = new Timeline(this.convertible, 'spritesheets/convertible.png', 13, 49, this.bindedUpdateConvertible);
+  this.timelinePark = new Timeline(this.park, 'spritesheets/park.png', 30, 81, this.bindedUpdatePark);
 
   this.init();
 };
@@ -32,8 +39,12 @@ Spritesheets.prototype.init = function() {
   /* dat.GUI controlers */
   this.folder.add(this, 'startLooping');
   this.folder.add(this, 'stopLooping');
-  this.folder.add(this.box, 'currentFrame').listen();
   this.folder.open();
+  this.folderConvertible.add(this.timelineConvertible, 'currentFrame').listen();
+  this.folderConvertible.open();
+
+  this.folderPark.add(this.timelinePark, 'currentFrame').listen();
+  this.folderPark.open();
 
   this.startLooping();
   requestAnimationFrame(this.bindedRender);
@@ -52,17 +63,25 @@ Spritesheets.prototype.render = function() {
 
 
 Spritesheets.prototype.startLooping = function() {
-  this.box.start();
+  this.timelineConvertible.start();
+  this.timelinePark.start();
 };
 
 Spritesheets.prototype.stopLooping = function() {
   var scope = this;
-  this.box.end(function() {
-      console.log('animation ' + scope.box.id + " ended");
+  this.timelineConvertible.end(function() {
+    console.log('animation', scope.timelineConvertible.id, "ended");
+  });
+
+  this.timelinePark.end(function() {
+    console.log('animation', scope.timelinePark.id, "ended");
   });
 };
 
-Spritesheets.prototype.onUpdate = function(currentFrame) {
-  console.log('update');
-  this.domElement.className = 'sprite convertible_frame_' + currentFrame
+Spritesheets.prototype.onUpdateConvertible = function(currentFrame) {
+  this.convertible.className = 'convertible convertible_frame_' + currentFrame
+};
+
+Spritesheets.prototype.onUpdatePark = function(currentFrame) {
+  this.park.className = 'park park_frame_' + currentFrame
 };
