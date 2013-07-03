@@ -10,8 +10,8 @@
 var Spritesheets = function() {
   this.debug = new Razor.Debugger(false, false);
 
-  this.folder = this.debug.gui.addFolder('Spritesheets');
-  this.debug.gui.close();
+  this.folder = this.debug.gui.addFolder('Sprite');
+  this.debug.gui.open();
 
   this.bindedRender = this.render.bind(this);
 
@@ -19,7 +19,7 @@ var Spritesheets = function() {
   this.domElement = document.getElementById('example');
 
   // an instance of the Timeline class
-  this.box = new Timeline(this.domElement, 'spritesheets/box.png', 16, 46, this.onUpdate);
+  this.box = new Timeline(this.domElement, 'spritesheets/convertible.png', 11, 49, this.onUpdate);
 
   this.init();
 };
@@ -35,6 +35,7 @@ Spritesheets.prototype.init = function() {
   this.folder.add(this.box, 'currentFrame').listen();
   this.folder.open();
 
+  this.startLooping();
   requestAnimationFrame(this.bindedRender);
 };
 
@@ -55,12 +56,13 @@ Spritesheets.prototype.startLooping = function() {
 };
 
 Spritesheets.prototype.stopLooping = function() {
+  var scope = this;
   this.box.end(function() {
-      alert('animation ' + this.box.id + " ended");
+      console.log('animation ' + scope.box.id + " ended");
   });
 };
 
 Spritesheets.prototype.onUpdate = function(currentFrame) {
   console.log('update');
-  this.domElement.className = 'sprite animation_frame_' + currentFrame
+  this.domElement.className = 'sprite convertible_frame_' + currentFrame
 };

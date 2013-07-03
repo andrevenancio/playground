@@ -62,6 +62,7 @@ Timeline.prototype.render_ = function() {
       this.needsRender = false;
       this.isLooping = false;
       this.endCallback();
+      return;
     }
 
     this.currentFrame--;
