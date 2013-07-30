@@ -13,7 +13,7 @@ ScrollSurface.Grid = function(canvas) {
 
 
   this.width = 400;
-  this.height = 400;
+  this.height = 300;
   this.ox = (window.innerWidth - this.width) / 2;
   this.oy = (window.innerHeight - this.height - 40) / 2;
   this.x = 0;
@@ -24,10 +24,11 @@ ScrollSurface.Grid = function(canvas) {
 
   this.rows = 2;
   this.columns = 2;
-  this.size = 100;
+  this.size = 50;
 
   this.points = [];
-  this.pointsInScene = [];
+  this.firstPoint = undefined;
+  this.oldfirstPoint = undefined;
 };
 
 ScrollSurface.Grid.prototype.resize = function() {
@@ -43,7 +44,6 @@ ScrollSurface.Grid.prototype.resize = function() {
 ScrollSurface.Grid.prototype.rebuild = function() {
 
   this.points = [];
-  this.pointsInScene = [];
 
   //calculates the number of necessary points taking in consideration the device width and the cell width
   this.rows = Math.ceil(this.height / this.size) + 3;
@@ -69,25 +69,40 @@ ScrollSurface.Grid.prototype.render = function(offsetX, offsetY) {
 
   this.context.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
+  var firstPoint = null;
   for (var point in this.points) {
+
     var inside = this.checkIfInScreen(this.points[point]);
+
+    //checks column and row
+    if (inside == true && firstPoint === null) {
+      firstPoint = this.points[point];
+
+      if (firstPoint !== this.firstPoint) {
+        this.firstPoint = firstPoint;
+        console.log(firstPoint.id, 'column', this.firstPoint.id % this.columns, 'row', this.firstPoint.id / this.rows);
+
+      }
+    }
 
     this.context.beginPath();
     this.context.arc(offsetX + this.points[point].x, offsetY + this.points[point].y, 5, 0, 2 * Math.PI, false);
-    this.context.fillStyle = inside;
+    this.context.fillStyle = inside == true ? 'red' : 'cyan';
     this.context.fill();
     this.context.lineWidth = 5;
     this.context.strokeStyle = '#003300';
     this.context.stroke();
 
     this.context.fillStyle = 'yellow';
-    this.context.font = '9px Arial center';
+    this.context.font = inside == true ? '14px Arial' : '9px Arial';
     this.context.fillText(this.points[point].id, offsetX + this.points[point].x, offsetY + this.points[point].y);
   }
 
   this.context.strokeStyle = '#FFFFFF';
   this.context.lineWidth = 1;
   this.context.strokeRect(this.ox + this.x, this.oy + this.y, this.width, this.height);
+
+
 
 };
 
@@ -98,8 +113,8 @@ ScrollSurface.Grid.prototype.checkIfInScreen = function(point) {
   var x = this.ox + this.x - this.offsetX;
   var y = this.oy + this.y - this.offsetY;
 
-  if(p.x >= x && p.x <= (x + this.width) && p.y >= y && p.y <= (y + this.height)) {
-    return 'red'
+  if (p.x >= x && p.x <= (x + this.width) && p.y >= y && p.y <= (y + this.height)) {
+    return true;
   }
-  return 'cyan';
-}
+  return false;
+};
