@@ -12,6 +12,7 @@ Razorfish playground is a place where we can access, or quickly build experiment
 [![Wonderwall](http://andrevenancio.github.com/playground/wonderwall/preview.png)](http://andrevenancio.github.com/playground/wonderwall/wonderwall.html)
 [![Drag](http://andrevenancio.github.com/playground/drag/preview.png)](http://andrevenancio.github.com/playground/drag/dragging.html)
 [![Spritesheets](http://andrevenancio.github.com/playground/spritesheets/preview.png)](http://andrevenancio.github.com/playground/spritesheets/spritesheets.html)
+[![Scrollsurface](http://andrevenancio.github.com/playground/scrollsurface/preview.png)](http://andrevenancio.github.com/playground/scrollsurface/scroll.html)
 
 
 ### Dependencies ###
