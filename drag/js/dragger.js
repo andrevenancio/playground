@@ -49,7 +49,7 @@ Dragger.prototype.init = function() {
   window.addEventListener('resize', function() { scope.resize(); }, false);
   this.domDragger.addEventListener('mousedown', function(e) { scope.onDown(e); }, false);
   this.canvas.addEventListener('mousemove', function(e) { scope.onMove(e); }, false);
-  window.addEventListener('mouseup', function(e) { scope.onUp(2); }, false);
+  window.addEventListener('mouseup', function(e) { scope.onUp(e); }, false);
 
   /* dat.GUI controlers */
   this.folder.addColor(scope, 'left');

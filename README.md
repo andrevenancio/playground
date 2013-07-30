@@ -25,6 +25,9 @@ hosted on:
 
 
 ### Change Log ###
+2013 06 30
+* added scrollsurface example.
+
 2013 06 02
 * added spritesheets example.
 
