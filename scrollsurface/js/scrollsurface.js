@@ -42,6 +42,8 @@ ScrollSurface.prototype.init = function() {
   this.folder.add(this.grid, 'offsetY').listen();
 
   this.folder.add(this.grid, 'size', 10, 90).onChange(this.rebuild.bind(this));
+  this.folder.add(this.grid, 'extra', 1, 4).step(1).onChange(this.rebuild.bind(this));
+
   this.folder.add(this.grid, 'rows').listen();
   this.folder.add(this.grid, 'columns').listen();
 

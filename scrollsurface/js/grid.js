@@ -29,6 +29,9 @@ ScrollSurface.Grid = function(canvas) {
   this.points = [];
   this.firstPoint = undefined;
   this.oldfirstPoint = undefined;
+
+  this.howMany = 1;
+  this.extra = 2;
 };
 
 ScrollSurface.Grid.prototype.resize = function() {
@@ -46,11 +49,11 @@ ScrollSurface.Grid.prototype.rebuild = function() {
   this.points = [];
 
   //calculates the number of necessary points taking in consideration the device width and the cell width
-  this.rows = Math.ceil(this.height / this.size) + 3;
-  this.columns = Math.ceil(this.width / this.size) + 3;
+  this.rows = Math.ceil(this.height / this.size) + 1 + (2 * this.extra);
+  this.columns = Math.floor(this.width / this.size) + 1 + (2 * this.extra);
 
-  var x = this.ox + this.x - this.size;
-  var y = this.oy + this.y - this.size;
+  var x = this.ox + this.x - (this.size * this.extra);
+  var y = this.oy + this.y - (this.size * this.extra);
   var a = 0;
   for (var i = 0; i < this.columns; i++) {
     for (var j = 0; j < this.rows; j++) {
@@ -61,31 +64,35 @@ ScrollSurface.Grid.prototype.rebuild = function() {
   }
 };
 
-ScrollSurface.Grid.prototype.rebuildGrid = function() {
-
+ScrollSurface.Grid.prototype.addToGridOnRight = function() {
+  //console.log('removing', this.howMany);
   var newArray = [];
   for (var i = 0; i < this.points.length; i++) {
     //removing from the array
-    if (i < this.rows) {
+    if (i < (this.rows * this.howMany)) {
       continue;
     }
-    //adding to the array
+    //adding all tge rest to the array
     newArray.push(this.points[i]);
   }
 
   var lastID = this.points[this.points.length - 1].id;
-  var id = 0;
-  for (var i = this.rows - 1; i >= 0; i--) {
+  console.log(lastID);  
+  //var id = 0;
+  /*for (var i = (this.rows * howMany) - 1; i >= 0; i--) {
     lastID++;
+
     id = this.points.length - (1 + i);
 
+    if(howMany>1) {
+      console.log(id);
+    };
     var point = new ScrollSurface.Point(this.points[id].x + this.size, this.points[id].y, lastID);
     newArray.push(point);
   }
 
-
-  //console.log(this.points.length, newArray.length);
-
+  console.log(this.points.length, newArray.length);
+  */
   this.points = [];
   for (var i = 0; i < newArray.length; i++) {
     this.points.push(newArray[i]);
@@ -100,7 +107,6 @@ ScrollSurface.Grid.prototype.render = function(offsetX, offsetY) {
   this.context.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
   var firstPoint = null;
-  var cur = 0;
   for (var point in this.points) {
 
     var curPoint = this.points[point];
@@ -113,12 +119,14 @@ ScrollSurface.Grid.prototype.render = function(offsetX, offsetY) {
 
       if (firstPoint !== this.firstPoint) {
         this.firstPoint = firstPoint;
-        var x = cur % (this.rows - 1);
-        console.log(firstPoint.id, x, this.firstPoint.id % (this.rows - 1));
-        if (x >= 4) {
-          this.rebuildGrid();
+        var row = Math.ceil((firstPoint.id - this.points[0].id) / this.rows);
+        //console.log(row);
+        if (row >= (this.extra + 2)) {
+          this.howMany = row - (this.extra + 1)
+          //console.log('monta', this.howMany);
+          this.addToGridOnRight();
           break;
-          throw new Error('Breaking out of loop failed');
+          //throw new Error('Breaking out of loop failed');
          }
       }
     }
@@ -129,10 +137,9 @@ ScrollSurface.Grid.prototype.render = function(offsetX, offsetY) {
     this.context.fill();
 
     this.context.fillStyle = 'white';
-    this.context.font = '9px Arial';
+    this.context.font = '10px Arial';
     this.context.fillText(curPoint.id, this.offsetX + curPoint.x, this.offsetY + curPoint.y);
     this.context.closePath();
-    cur++;
   }
 
   this.context.beginPath();
@@ -141,9 +148,10 @@ ScrollSurface.Grid.prototype.render = function(offsetX, offsetY) {
   this.context.strokeRect(this.ox + this.x, this.oy + this.y, this.width, this.height);
   this.context.closePath();
 
-
-
-
+  if (this.howMany > 3) {
+    //console.log('rebuild with', this.howMany);
+    //debugger;
+  }
 };
 
 ScrollSurface.Grid.prototype.checkIfInScreen = function(point) {
