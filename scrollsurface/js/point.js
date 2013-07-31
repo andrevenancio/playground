@@ -11,5 +11,5 @@
 ScrollSurface.Point = function(x, y, id) {
   this.x = x || 0;
   this.y = y || 0;
-  this.id = id || 'none';
+  this.id = id || '0';
 };

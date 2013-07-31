@@ -12,7 +12,7 @@ ScrollSurface.Grid = function(canvas) {
   this.context = this.canvas.getContext('2d');
 
 
-  this.width = 400;
+  this.width = 450;
   this.height = 300;
   this.ox = (window.innerWidth - this.width) / 2;
   this.oy = (window.innerHeight - this.height - 40) / 2;
@@ -52,55 +52,95 @@ ScrollSurface.Grid.prototype.rebuild = function() {
   var x = this.ox + this.x - this.size;
   var y = this.oy + this.y - this.size;
   var a = 0;
-  for (var i = 0; i < this.rows; i++) {
-    for (var j = 0; j < this.columns; j++) {
-      a++;
-
-      var point = new ScrollSurface.Point(x + (j * this.size), y + (i * this.size), a);
+  for (var i = 0; i < this.columns; i++) {
+    for (var j = 0; j < this.rows; j++) {
+      var point = new ScrollSurface.Point(x + (i * this.size), y + (j * this.size), a);
       this.points.push(point);
+      a++;
     }
+  }
+};
+
+ScrollSurface.Grid.prototype.rebuildGrid = function() {
+
+  var newArray = [];
+  for (var i = 0; i < this.points.length; i++) {
+    //removing from the array
+    if (i < this.rows) {
+      continue;
+    }
+    //adding to the array
+    newArray.push(this.points[i]);
+  }
+
+  var lastID = this.points[this.points.length - 1].id;
+  var id = 0;
+  for (var i = this.rows - 1; i >= 0; i--) {
+    lastID++;
+    id = this.points.length - (1 + i);
+
+    var point = new ScrollSurface.Point(this.points[id].x + this.size, this.points[id].y, lastID);
+    newArray.push(point);
+  }
+
+
+  //console.log(this.points.length, newArray.length);
+
+  this.points = [];
+  for (var i = 0; i < newArray.length; i++) {
+    this.points.push(newArray[i]);
   }
 };
 
 ScrollSurface.Grid.prototype.render = function(offsetX, offsetY) {
 
   this.offsetX = offsetX;
-  this.offsetY = offsetY;
+  //this.offsetY = offsetY;
 
   this.context.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
   var firstPoint = null;
+  var cur = 0;
   for (var point in this.points) {
 
-    var inside = this.checkIfInScreen(this.points[point]);
+    var curPoint = this.points[point];
+    var inside = this.checkIfInScreen(curPoint);
+    var colour = inside == true ? 'green' : 'orange';
 
     //checks column and row
     if (inside == true && firstPoint === null) {
-      firstPoint = this.points[point];
+      firstPoint = curPoint;
 
       if (firstPoint !== this.firstPoint) {
         this.firstPoint = firstPoint;
-        console.log(firstPoint.id, 'column', this.firstPoint.id % this.columns, 'row', this.firstPoint.id / this.rows);
-
+        var x = cur % (this.rows - 1);
+        console.log(firstPoint.id, x, this.firstPoint.id % (this.rows - 1));
+        if (x >= 4) {
+          this.rebuildGrid();
+          break;
+          throw new Error('Breaking out of loop failed');
+         }
       }
     }
 
     this.context.beginPath();
-    this.context.arc(offsetX + this.points[point].x, offsetY + this.points[point].y, 5, 0, 2 * Math.PI, false);
-    this.context.fillStyle = inside == true ? 'red' : 'cyan';
+    this.context.fillStyle = colour;
+    this.context.arc(this.offsetX + curPoint.x, this.offsetY + curPoint.y, 3, 0, 2 * Math.PI, false);
     this.context.fill();
-    this.context.lineWidth = 5;
-    this.context.strokeStyle = '#003300';
-    this.context.stroke();
 
-    this.context.fillStyle = 'yellow';
-    this.context.font = inside == true ? '14px Arial' : '9px Arial';
-    this.context.fillText(this.points[point].id, offsetX + this.points[point].x, offsetY + this.points[point].y);
+    this.context.fillStyle = 'white';
+    this.context.font = '9px Arial';
+    this.context.fillText(curPoint.id, this.offsetX + curPoint.x, this.offsetY + curPoint.y);
+    this.context.closePath();
+    cur++;
   }
 
+  this.context.beginPath();
   this.context.strokeStyle = '#FFFFFF';
   this.context.lineWidth = 1;
   this.context.strokeRect(this.ox + this.x, this.oy + this.y, this.width, this.height);
+  this.context.closePath();
+
 
 
 
