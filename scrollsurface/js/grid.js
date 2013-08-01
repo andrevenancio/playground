@@ -31,7 +31,7 @@ ScrollSurface.Grid = function(canvas) {
   this.oldfirstPoint = undefined;
 
   this.howMany = 1;
-  this.extra = 1;
+  this.extra = 0;
 };
 
 ScrollSurface.Grid.prototype.resize = function() {
@@ -65,6 +65,7 @@ ScrollSurface.Grid.prototype.rebuild = function() {
 };
 
 ScrollSurface.Grid.prototype.addToGridOnRight = function() {
+  /*
   var lastID = this.points[this.points.length - 1].id;
   for (var j = this.rows - 1; j >= 0; j--) {
 
@@ -74,11 +75,43 @@ ScrollSurface.Grid.prototype.addToGridOnRight = function() {
     var point = new ScrollSurface.Point(this.points[id].x + this.size, this.points[id].y, lastID);
     this.points.push(point);
   }
+  */
 
   var i = 0;
   while (i < this.rows) {
     this.points.splice(0, 1);
     i++;
+  }
+};
+
+ScrollSurface.Grid.prototype.addToGridOnLeft = function() {
+  /*var lastID = this.points[this.points.length - 1].id;
+  for (var j = this.rows - 1; j >= 0; j--) {
+
+    var id = this.points.length - this.rows;
+    lastID++;
+
+    var point = new ScrollSurface.Point(this.points[id].x + this.size, this.points[id].y, lastID);
+    this.points.push(point);
+  }
+*/
+//grabs first positions
+  var temp = [];
+  for(var i= 0; i<this.rows; i++) {
+    temp.push(this.points[i]);
+  }
+
+  var i = 0;
+  while (i < this.rows) {
+    this.points.splice(this.points.length - 1, 1);
+    i++;
+  }
+
+  var lastID = this.points[this.points.length - 1].id;
+  for(var i=0; i<this.rows; i++) {
+    var point = new ScrollSurface.Point(temp[i].x - this.size, temp[i].y, lastID);
+    this.points.unshift(point);
+    lastID++;
   }
 };
 
@@ -103,16 +136,30 @@ ScrollSurface.Grid.prototype.render = function(offsetX, offsetY) {
       if (firstPoint !== this.firstPoint) {
         this.firstPoint = firstPoint;
         var row = Math.ceil((firstPoint.id - this.points[0].id) / this.rows);
-        //console.log(row);
+
+        console.log(row);
+
         if (row >= (this.extra + 2)) {
           this.howMany = row - (this.extra + 1);
-          //console.log('monta', this.howMany);
+
           for (var i = 0; i < this.howMany; i++) {
             this.addToGridOnRight();
           }
+
           break;
           throw new Error('Breaking out of loop failed');
-         }
+
+        } else if (row <= this.extra) {
+          this.howMany = row - (this.extra - 1);
+
+          for (var i = 0; i < this.howMany; i++) {
+            this.addToGridOnLeft();
+          }
+
+          break;
+          throw new Error('Breaking out of loop failed');
+
+        }
       }
     }
 
