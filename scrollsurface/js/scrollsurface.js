@@ -38,17 +38,12 @@ ScrollSurface.prototype.init = function() {
   window.addEventListener('mousemove', function(e) { scope.onMove(e); }, false);
   window.addEventListener('mouseup', function(e) { scope.onUp(e); }, false);
 
+  var colors = this.folder.addFolder('RGB');
+  colors.add(this.grid, 'R').listen();
+  colors.add(this.grid, 'G').listen();
+  colors.add(this.grid, 'B').listen();
   this.folder.add(this.grid, 'offsetX').listen();
   this.folder.add(this.grid, 'offsetY').listen();
-
-  this.folder.add(this.grid, 'size', 10, 90).onChange(this.rebuild.bind(this));
-  this.folder.add(this.grid, 'extra', 1, 4).step(1).onChange(this.rebuild.bind(this));
-
-  this.folder.add(this.grid, 'rows').listen();
-  this.folder.add(this.grid, 'columns').listen();
-
-  this.folder.add(this.grid, 'x', -500, 500).onChange(this.rebuild.bind(this));
-  this.folder.add(this.grid, 'y', -500, 500).onChange(this.rebuild.bind(this));
 
   this.folder.open();
 
