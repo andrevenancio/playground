@@ -31,7 +31,7 @@ ScrollSurface.Grid = function(canvas) {
   this.oldfirstPoint = undefined;
 
   this.howMany = 1;
-  this.extra = 2;
+  this.extra = 1;
 };
 
 ScrollSurface.Grid.prototype.resize = function() {
@@ -65,37 +65,20 @@ ScrollSurface.Grid.prototype.rebuild = function() {
 };
 
 ScrollSurface.Grid.prototype.addToGridOnRight = function() {
-  //console.log('removing', this.howMany);
-  var newArray = [];
-  for (var i = 0; i < this.points.length; i++) {
-    //removing from the array
-    if (i < (this.rows * this.howMany)) {
-      continue;
-    }
-    //adding all tge rest to the array
-    newArray.push(this.points[i]);
-  }
-
   var lastID = this.points[this.points.length - 1].id;
-  console.log(lastID);  
-  //var id = 0;
-  /*for (var i = (this.rows * howMany) - 1; i >= 0; i--) {
+  for (var j = this.rows - 1; j >= 0; j--) {
+
+    var id = this.points.length - this.rows;
     lastID++;
 
-    id = this.points.length - (1 + i);
-
-    if(howMany>1) {
-      console.log(id);
-    };
     var point = new ScrollSurface.Point(this.points[id].x + this.size, this.points[id].y, lastID);
-    newArray.push(point);
+    this.points.push(point);
   }
 
-  console.log(this.points.length, newArray.length);
-  */
-  this.points = [];
-  for (var i = 0; i < newArray.length; i++) {
-    this.points.push(newArray[i]);
+  var i = 0;
+  while (i < this.rows) {
+    this.points.splice(0, 1);
+    i++;
   }
 };
 
@@ -122,11 +105,13 @@ ScrollSurface.Grid.prototype.render = function(offsetX, offsetY) {
         var row = Math.ceil((firstPoint.id - this.points[0].id) / this.rows);
         //console.log(row);
         if (row >= (this.extra + 2)) {
-          this.howMany = row - (this.extra + 1)
+          this.howMany = row - (this.extra + 1);
           //console.log('monta', this.howMany);
-          this.addToGridOnRight();
+          for (var i = 0; i < this.howMany; i++) {
+            this.addToGridOnRight();
+          }
           break;
-          //throw new Error('Breaking out of loop failed');
+          throw new Error('Breaking out of loop failed');
          }
       }
     }
@@ -147,11 +132,6 @@ ScrollSurface.Grid.prototype.render = function(offsetX, offsetY) {
   this.context.lineWidth = 1;
   this.context.strokeRect(this.ox + this.x, this.oy + this.y, this.width, this.height);
   this.context.closePath();
-
-  if (this.howMany > 3) {
-    //console.log('rebuild with', this.howMany);
-    //debugger;
-  }
 };
 
 ScrollSurface.Grid.prototype.checkIfInScreen = function(point) {
