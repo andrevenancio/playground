@@ -45,6 +45,7 @@ ScrollSurface.prototype.init = function() {
   this.folder.add(this.grid, 'offsetX').listen();
   this.folder.add(this.grid, 'offsetY').listen();
 
+
   this.folder.open();
 
   this.rebuild();
@@ -68,7 +69,7 @@ ScrollSurface.prototype.onDown = function(e) {
 
   this.oldX = this.mouseX;
   this.oldY = this.mouseY;
-  
+
   this.offsetX_ = this.offsetX;
   this.offsetY_ = this.offsetY;
 };
@@ -104,7 +105,7 @@ ScrollSurface.prototype.render = function() {
   this.debug.begin();
 
   this.calculate();
-  this.grid.render(this.offsetX_, this.offsetY_);
+  this.grid.render(this.offsetX_, 0);
 
   this.debug.end();
   requestAnimationFrame(this.bindedRender);
