@@ -39,6 +39,7 @@ ScrollSurface.prototype.init = function() {
   window.addEventListener('mouseup', function(e) { scope.onUp(e); }, false);
 
   var colors = this.folder.addFolder('RGB');
+  colors.open();
   colors.add(this.grid, 'R').listen();
   colors.add(this.grid, 'G').listen();
   colors.add(this.grid, 'B').listen();
@@ -48,7 +49,7 @@ ScrollSurface.prototype.init = function() {
 
   this.folder.open();
 
-  this.rebuild();
+  this.feedGrid();
   requestAnimationFrame(this.bindedRender);
 };
 
@@ -56,9 +57,15 @@ ScrollSurface.prototype.resize = function() {
   this.grid.resize();
 };
 
-ScrollSurface.prototype.rebuild = function() {
-  this.resize();
-  this.grid.rebuild();
+ScrollSurface.prototype.feedGrid = function() {
+  var data = [];
+  for (var i = 0; i < 20; i++) {
+    var obj = {};
+      obj.id = 'id_' + i;
+      data.push(obj);
+  }
+  this.grid.feed(data);
+  this.grid.resize();
 };
 
 ScrollSurface.prototype.onDown = function(e) {
@@ -105,7 +112,7 @@ ScrollSurface.prototype.render = function() {
   this.debug.begin();
 
   this.calculate();
-  this.grid.render(this.offsetX_, 0);
+  this.grid.render(this.offsetX_, 0/*this.offsetY_*/);
 
   this.debug.end();
   requestAnimationFrame(this.bindedRender);

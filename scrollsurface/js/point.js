@@ -12,5 +12,5 @@ ScrollSurface.Point = function(x, y, id) {
   this.x = x || 0;
   this.y = y || 0;
   this.id = id || '0';
-  this.active = false;
+  this.active = true;
 };

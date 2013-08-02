@@ -20,11 +20,20 @@ ScrollSurface.Grid = function(canvas) {
   this.cols = 3;
   this.rows = 3;
 
-  this.R = false;
+  this.R = true;
   this.G = true;
   this.B = false;
 
+  this.curItem = 0;
+  this.data = [];
   this.points = [];
+
+  this.oldRow = this.oldCol = 0;
+  this.curRow = this.curCol = 0;
+};
+
+ScrollSurface.Grid.prototype.feed = function(data) {
+  this.data = data;
 };
 
 ScrollSurface.Grid.prototype.resize = function() {
@@ -38,13 +47,21 @@ ScrollSurface.Grid.prototype.resize = function() {
 };
 
 ScrollSurface.Grid.prototype.rebuild = function() {
-
   this.points = [];
 
   var a = 0;
+  var x = this.x - this.width;
+  var y = this.y - this.height;
+
   for (var i = 0; i < this.rows; i++) {
     for (var j = 0; j < this.cols; j++) {
-      var point = new ScrollSurface.Point(this.x + (j * this.width), this.y + (i * this.height), a);
+      var id = 0;//this.curRow + a;
+      //console.log(id % this.data.length);
+
+
+      var point = new ScrollSurface.Point(x + (j * this.width) - this.offsetX,
+                                          y + (i * this.height) - this.offsetY,
+                                          this.data[id % this.data.length].id);
       this.points.push(point);
       a++;
     }
@@ -66,48 +83,25 @@ ScrollSurface.Grid.prototype.checkIfInView = function() {
 };
 
 ScrollSurface.Grid.prototype.checkArray = function() {
-  var cellStartX = this.points[0].x + this.offsetX;
+  this.oldRow = this.curRow;
+  this.oldCol = this.curCol;
+  this.curRow = Math.floor(-this.offsetX / this.width);
+  this.curCol = Math.floor(-this.offsetY / this.height);
 
-
-  if (cellStartX < (this.x-this.width)) {
-    var lastID = this.points[this.points.length - 1].id;
-    console.log('remove elements from the left');
-    //we need to remove elements from the points array, but not to mess up the original array, lets duplicate all points into a new one
-    
-    var temp = [];
-    for (var i = 0; i < this.points.length; i++) {
-      console.log(i%this.rows, i);
-      if (i % this.rows == 0) {
-        lastID++;
-
-        var newIndex = i + this.rows-1;
-        var point = new ScrollSurface.Point(this.points[newIndex].x + this.width, this.points[newIndex].y, lastID);
-        temp.push(point);
-        //console.log('NEW', i)
-        continue;
-      }
-      //console.log('OLD', i)
-      temp.push(this.points[i]);
-    }
-    //all points added, except the points on the left
-    this.points = [];
-    for (var i = 0; i < temp.length; i++) {
-      //console.log(temp[i])
-      this.points.push(temp[i]);
-    }
-    debugger;
-  }  
+  if (this.oldRow !== this.curRow || this.oldCol !== this.curCol) {
+    this.rebuild();
+  }
 };
 
 ScrollSurface.Grid.prototype.render = function(offsetX, offsetY) {
 
-  this.offsetX = offsetX;// - (this.width*(this.cols-2));
-  this.offsetY = offsetY;// - (this.height*(this.rows-2));
+  this.offsetX = offsetX;
+  this.offsetY = offsetY;
 
   this.context.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
   this.checkArray();
-  this.checkIfInView();
+  //this.checkIfInView();
 
   for (var i = 0; i < this.points.length; i++) {
 
@@ -122,7 +116,7 @@ ScrollSurface.Grid.prototype.render = function(offsetX, offsetY) {
     this.context.fill();
 
     this.context.fillStyle = '#000000';
-    this.context.font = '12px Arial';
+    this.context.font = '10px Arial';
     this.context.fillText(this.points[i].id, this.offsetX + this.points[i].x + this.width / 2, this.offsetY + this.points[i].y + this.height / 2);
     //this.context.strokeStyle = '#000000';
     //this.context.lineWidth = 1;
@@ -137,17 +131,4 @@ ScrollSurface.Grid.prototype.render = function(offsetX, offsetY) {
   this.context.lineWidth = 1;
   this.context.strokeRect(this.x, this.y, this.width, this.height);
   this.context.closePath();
-};
-
-ScrollSurface.Grid.prototype.checkIfInScreen = function(point) {
-
-  var p = point;
-
-  var x = this.ox + this.x - this.offsetX;
-  var y = this.oy + this.y - this.offsetY;
-
-  if (p.x >= x && p.x <= (x + this.width) && p.y >= y && p.y <= (y + this.height)) {
-    return true;
-  }
-  return false;
 };
