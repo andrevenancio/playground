@@ -8,17 +8,18 @@
  * @constructor
  */
 ScrollSurface.Grid = function(canvas) {
-  this.canvas = document.getElementById(canvas);
+  this.canvas = canvas;
   this.context = this.canvas.getContext('2d');
 
-  this.width = 100;
-  this.height = 100;
+  this.width = window.innerWidth;
+  this.height = window.innerHeight-40;
   this.x = (window.innerWidth - this.width) / 2;
-  this.y = (window.innerHeight - this.height - 40) / 2;
+  this.y = (window.innerHeight - this.height) / 2;
   this.offsetX = 0;
   this.offsetY = 0;
   this.cols = 3;
   this.rows = 3;
+  this.scale = 1;
 
   this.R = true;
   this.G = true;
@@ -37,11 +38,11 @@ ScrollSurface.Grid.prototype.feed = function(data) {
 };
 
 ScrollSurface.Grid.prototype.resize = function() {
-  this.canvas.width = window.innerWidth;
-  this.canvas.height = window.innerHeight - 40;
+  this.canvas.width = this.width = window.innerWidth;
+  this.canvas.height = this.height = window.innerHeight - 40;
 
-  this.x = (window.innerWidth - this.width) / 2;
-  this.y = (window.innerHeight - this.height - 40) / 2;
+  this.x = (window.innerWidth - (this.width * this.scale)) / 2;
+  this.y = (window.innerHeight - ((this.height * this.scale))-40) / 2;
 
   this.rebuild();
 };
@@ -50,17 +51,18 @@ ScrollSurface.Grid.prototype.rebuild = function() {
   this.points = [];
 
   var a = 0;
-  var x = this.x - this.width;
-  var y = this.y - this.height;
+  var x = this.x - (this.width * this.scale);
+  var y = this.y - (this.height * this.scale);
 
   for (var i = 0; i < this.rows; i++) {
     for (var j = 0; j < this.cols; j++) {
-      var id = 0;//this.curRow + a;
-      //console.log(id % this.data.length);
+      var id = this.curRow + a;
+      if (this.curRow < 0) {
+        id += this.data.length + 1;
+      }
 
-
-      var point = new ScrollSurface.Point(x + (j * this.width) - this.offsetX,
-                                          y + (i * this.height) - this.offsetY,
+      var point = new ScrollSurface.Point(x + (j * (this.width * this.scale)) - this.offsetX,
+                                          y + (i * (this.height * this.scale)) - this.offsetY,
                                           this.data[id % this.data.length].id);
       this.points.push(point);
       a++;
@@ -74,7 +76,7 @@ ScrollSurface.Grid.prototype.checkIfInView = function() {
     var x = this.x - this.offsetX;
     var y = this.y - this.offsetY;
 
-    if ((point.x + this.width) >= x && point.x <= (x + this.width) && (point.y + this.height) >= y && point.y <= (y + this.height)) {
+    if ((point.x + this.width * this.scale) >= x && point.x <= (x + this.width * this.scale) && (point.y + this.height * this.scale) >= y && point.y <= (y + this.height * this.scale)) {
       point.active = true;
     } else {
       point.active = false;
@@ -85,8 +87,8 @@ ScrollSurface.Grid.prototype.checkIfInView = function() {
 ScrollSurface.Grid.prototype.checkArray = function() {
   this.oldRow = this.curRow;
   this.oldCol = this.curCol;
-  this.curRow = Math.floor(-this.offsetX / this.width);
-  this.curCol = Math.floor(-this.offsetY / this.height);
+  this.curRow = Math.floor(-this.offsetX / (this.width * this.scale));
+  this.curCol = Math.floor(-this.offsetY / (this.height * this.scale));
 
   if (this.oldRow !== this.curRow || this.oldCol !== this.curCol) {
     this.rebuild();
@@ -112,12 +114,12 @@ ScrollSurface.Grid.prototype.render = function(offsetX, offsetY) {
 
     this.context.beginPath();
     this.context.fillStyle = 'rgb(' + (this.R == true ? value : 0) + ',' + (this.G == true ? value : 0) + ',' + (this.B == true ? value : 0) + ')';
-    this.context.rect(this.offsetX + this.points[i].x, this.offsetY + this.points[i].y, this.width, this.height);
+    this.context.rect(this.offsetX + this.points[i].x, this.offsetY + this.points[i].y, this.width * this.scale, this.height * this.scale);
     this.context.fill();
 
     this.context.fillStyle = '#000000';
     this.context.font = '10px Arial';
-    this.context.fillText(this.points[i].id, this.offsetX + this.points[i].x + this.width / 2, this.offsetY + this.points[i].y + this.height / 2);
+    this.context.fillText(this.points[i].id, this.offsetX + this.points[i].x + (this.width * this.scale) / 2, this.offsetY + this.points[i].y + (this.height * this.scale) / 2);
     //this.context.strokeStyle = '#000000';
     //this.context.lineWidth = 1;
     //this.context.stroke();
@@ -125,10 +127,10 @@ ScrollSurface.Grid.prototype.render = function(offsetX, offsetY) {
 
     this.context.restore();
   }
-
+console.log(this.y)
   this.context.beginPath();
   this.context.strokeStyle = '#FFFFFF';
-  this.context.lineWidth = 1;
-  this.context.strokeRect(this.x, this.y, this.width, this.height);
+  this.context.lineWidth = 2;
+  this.context.strokeRect(this.x, this.y, this.width*this.scale, this.height*this.scale);
   this.context.closePath();
 };

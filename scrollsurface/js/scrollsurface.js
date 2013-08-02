@@ -8,8 +8,10 @@
  * @constructor
  */
 var ScrollSurface = function() {
+
+  this.canvas = document.getElementById('canvas');
   this.debug = new Razor.Debugger(true, false);
-  this.grid = new ScrollSurface.Grid('canvas');
+  this.grid = new ScrollSurface.Grid(this.canvas);
 
   this.folder = this.debug.gui.addFolder('Scroll Surface');
   this.debug.gui.open();
@@ -34,8 +36,8 @@ var ScrollSurface = function() {
 ScrollSurface.prototype.init = function() {
   var scope = this;
   window.addEventListener('resize', function() { scope.resize(); }, false);
-  window.addEventListener('mousedown', function(e) { scope.onDown(e); }, false);
-  window.addEventListener('mousemove', function(e) { scope.onMove(e); }, false);
+  this.canvas.addEventListener('mousedown', function(e) { scope.onDown(e); }, false);
+  this.canvas.addEventListener('mousemove', function(e) { scope.onMove(e); }, false);
   window.addEventListener('mouseup', function(e) { scope.onUp(e); }, false);
 
   var colors = this.folder.addFolder('RGB');
@@ -43,6 +45,7 @@ ScrollSurface.prototype.init = function() {
   colors.add(this.grid, 'R').listen();
   colors.add(this.grid, 'G').listen();
   colors.add(this.grid, 'B').listen();
+  this.folder.add(this.grid, 'scale', 0.1, 1).listen().onChange(function(e) { scope.grid.resize(); });
   this.folder.add(this.grid, 'offsetX').listen();
   this.folder.add(this.grid, 'offsetY').listen();
 
