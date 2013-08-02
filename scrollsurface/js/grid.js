@@ -12,7 +12,7 @@ ScrollSurface.Grid = function(canvas) {
   this.context = this.canvas.getContext('2d');
 
   this.width = window.innerWidth;
-  this.height = window.innerHeight-40;
+  this.height = window.innerHeight - 40;
   this.x = (window.innerWidth - this.width) / 2;
   this.y = (window.innerHeight - this.height) / 2;
   this.offsetX = 0;
@@ -42,7 +42,7 @@ ScrollSurface.Grid.prototype.resize = function() {
   this.canvas.height = this.height = window.innerHeight - 40;
 
   this.x = (window.innerWidth - (this.width * this.scale)) / 2;
-  this.y = (window.innerHeight - ((this.height * this.scale))-40) / 2;
+  this.y = (window.innerHeight - ((this.height * this.scale)) - 40) / 2;
 
   this.rebuild();
 };
@@ -127,10 +127,10 @@ ScrollSurface.Grid.prototype.render = function(offsetX, offsetY) {
 
     this.context.restore();
   }
-console.log(this.y)
+
   this.context.beginPath();
   this.context.strokeStyle = '#FFFFFF';
   this.context.lineWidth = 2;
-  this.context.strokeRect(this.x, this.y, this.width*this.scale, this.height*this.scale);
+  this.context.strokeRect(this.x, this.y, this.width * this.scale, this.height * this.scale);
   this.context.closePath();
 };
