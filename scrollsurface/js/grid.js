@@ -19,7 +19,7 @@ ScrollSurface.Grid = function(canvas) {
   this.offsetY = 0;
   this.cols = 3;
   this.rows = 3;
-  this.scale = 1;
+  this.scale = 0.8;
 
   this.R = true;
   this.G = true;
