@@ -25,7 +25,7 @@ var Shifters = function() {
   this.width = 0;
   this.height = 0;
 
-  this.distancia = 128;
+  this.distance = 128;
   this.bindedRender = this.render.bind(this);
 
   this.init();
@@ -34,7 +34,7 @@ var Shifters = function() {
 Shifters.prototype.init = function() {
   var scope = this;
   window.addEventListener('resize', function() { scope.resize(); }, false);
-  this.folder.add(this, 'distancia', -128, 128);
+  this.folder.add(this, 'distance', -128, 128).listen();
   this.folder.open();
 
   this.resize();
@@ -59,7 +59,7 @@ Shifters.prototype.render = function() {
   var y = (this.pointB.y + this.pointA.y) / 2;
 
   //mover um ponto sobre uma linha que liga dois pontos
-  var ponto = this.calculatePointAlongAxis({x: x, y: y}, this.randomPoint, this.distancia);
+  var ponto = this.calculatePointAlongAxis({x: x, y: y}, this.randomPoint, this.distance);
   x = ponto.x;
   y = ponto.y;
 
@@ -119,13 +119,14 @@ Shifters.prototype.startRandom = function() {
       break;
   }
 
-this.distancia = 128;
+this.distance = 128;
 var self = this;
 var tween1 = new TWEEN.Tween(this)
-            .to({ distancia: -128 }, 500)
+            .to({ distance: -128 }, 500)
+            .delay(500)
             .easing(TWEEN.Easing.Quartic.In)
             .onUpdate(function() {
-              console.log(this.distancia);
+              console.log(this.distance);
             })
             .onComplete(function() {
               console.log('acabou');
@@ -134,7 +135,7 @@ var tween1 = new TWEEN.Tween(this)
               var x = (self.pointB.x + self.pointA.x) / 2;
               var y = (self.pointB.y + self.pointA.y) / 2;
 
-              var ponto = self.calculatePointAlongAxis({x: x, y: y}, self.randomPoint, self.distancia);
+              var ponto = self.calculatePointAlongAxis({x: x, y: y}, self.randomPoint, self.distance);
               x = ponto.x;
               y = ponto.y;
               self.points[randomPoint].x = x;
