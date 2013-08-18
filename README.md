@@ -13,6 +13,7 @@ Razorfish playground is a place where we can access, or quickly build experiment
 [![Drag](http://andrevenancio.github.com/playground/drag/preview.png)](http://andrevenancio.github.com/playground/drag/dragging.html)
 [![Spritesheets](http://andrevenancio.github.com/playground/spritesheets/preview.png)](http://andrevenancio.github.com/playground/spritesheets/spritesheets.html)
 [![Scrollsurface](http://andrevenancio.github.com/playground/scrollsurface/preview.png)](http://andrevenancio.github.com/playground/scrollsurface/scroll.html)
+[![Shifters](http://andrevenancio.github.com/playground/shifters/preview.png)](http://andrevenancio.github.com/playground/shifters/shifters.html)
 
 
 ### Dependencies ###
@@ -26,6 +27,9 @@ hosted on:
 
 
 ### Change Log ###
+2013 07 18
+* added shifters example.
+
 2013 06 30
 * added scrollsurface example.
 

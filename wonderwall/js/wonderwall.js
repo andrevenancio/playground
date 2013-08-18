@@ -147,7 +147,6 @@ Wonderwall.prototype.render = function() {
 
   var current = 0;
   var sum = 0;
-  var total = (this.rows - 1) * (this.columns - 1);
 
   for (var a = 0; a < this.rows - 1; a++) {
     for (var b = 0; b < this.columns - 1; b++) {
@@ -164,6 +163,7 @@ Wonderwall.prototype.render = function() {
       this.context.fill();
 
       if (b % this.columns == this.columns - 2) {
+        console.log(i);
         ++sum;
       }
       ++current;

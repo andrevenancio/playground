@@ -19,11 +19,12 @@ ScrollSurface.Grid = function(canvas) {
   this.offsetY = 0;
   this.cols = 3;
   this.rows = 3;
-  this.scale = 0.8;
+  this.scale = 0.1;
 
-  this.R = true;
+  this.R = false;
   this.G = true;
-  this.B = false;
+  this.B = true;
+  this.detectInView = false;
 
   this.curItem = 0;
   this.data = [];
@@ -56,9 +57,16 @@ ScrollSurface.Grid.prototype.rebuild = function() {
 
   for (var i = 0; i < this.rows; i++) {
     for (var j = 0; j < this.cols; j++) {
-      var id = this.curRow + a;
+      var id = this.curRow + (this.curCol * 3) + a;
+      if(a == 0) {
+        console.warn(id)
+      }
       if (this.curRow < 0) {
         id += this.data.length + 1;
+      }
+
+      if (this.curCol < 0) {
+        id += this.data.length;
       }
 
       var point = new ScrollSurface.Point(x + (j * (this.width * this.scale)) - this.offsetX,
@@ -103,7 +111,9 @@ ScrollSurface.Grid.prototype.render = function(offsetX, offsetY) {
   this.context.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
   this.checkArray();
-  //this.checkIfInView();
+  if (this.detectInView) {
+    this.checkIfInView();
+  }
 
   for (var i = 0; i < this.points.length; i++) {
 
@@ -114,6 +124,7 @@ ScrollSurface.Grid.prototype.render = function(offsetX, offsetY) {
 
     this.context.beginPath();
     this.context.fillStyle = 'rgb(' + (this.R == true ? value : 0) + ',' + (this.G == true ? value : 0) + ',' + (this.B == true ? value : 0) + ')';
+    //this.context.fillStyle = 'grey';
     this.context.rect(this.offsetX + this.points[i].x, this.offsetY + this.points[i].y, this.width * this.scale, this.height * this.scale);
     this.context.fill();
 

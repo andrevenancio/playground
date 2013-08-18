@@ -45,6 +45,13 @@ ScrollSurface.prototype.init = function() {
   colors.add(this.grid, 'R').listen();
   colors.add(this.grid, 'G').listen();
   colors.add(this.grid, 'B').listen();
+
+  var positions = this.folder.addFolder('position');
+  positions.open();
+  positions.add(this.grid, 'curRow').listen();
+  positions.add(this.grid, 'curCol').listen();
+
+  this.folder.add(this.grid, 'detectInView').listen().onChange(function(e) { scope.grid.resize(); });
   this.folder.add(this.grid, 'scale', 0.1, 1).listen().onChange(function(e) { scope.grid.resize(); });
   this.folder.add(this.grid, 'offsetX').listen();
   this.folder.add(this.grid, 'offsetY').listen();
@@ -115,7 +122,7 @@ ScrollSurface.prototype.render = function() {
   this.debug.begin();
 
   this.calculate();
-  this.grid.render(this.offsetX_, 0/*this.offsetY_*/);
+  this.grid.render(this.offsetX_, this.offsetY_);
 
   this.debug.end();
   requestAnimationFrame(this.bindedRender);
